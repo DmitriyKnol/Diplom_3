@@ -12,7 +12,8 @@ public class RegistrationPage {
     private final By fieldPassword =  By.xpath(".//div/input[@name='Пароль']");
     // Кнопка зарегестрироваться
     private final By registrationButton = By.xpath(".//button[text()='Зарегистрироваться']");
-
+    // Кнопка восстановить пароль
+    private final By recoveryPassword = By.xpath(".//a[text()='Восстановить пароль']");
     private final WebDriver driver;
 
     public RegistrationPage(WebDriver driver) {
@@ -33,6 +34,9 @@ public class RegistrationPage {
     }
     public void clickButtonRegistration() {
         driver.findElement(registrationButton).click();
+    }
+    public void clickRecoveryPassword() {
+        driver.findElement(recoveryPassword).click();
     }
     public void registrationInputFieldsAndClickButton(String inputName,String inputEmail, String inputPassword) {
         valueUserName(inputName);
