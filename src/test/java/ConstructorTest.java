@@ -1,5 +1,5 @@
 import io.qameta.allure.junit4.DisplayName;
-import main.pom.BrowserRule;
+import main.BrowserRule;
 import main.pom.MainPage;
 import org.junit.After;
 import org.junit.Before;
@@ -22,13 +22,15 @@ public class ConstructorTest {
     public ConstructorTest(String browser) {
         this.browser = browser;
     }
-    @Parameterized.Parameters (name = "{0}")
+
+    @Parameterized.Parameters(name = "{0}")
     public static Object[][] getBrowser() {
         return new Object[][]{
                 {"Chrome",},
                 {"Yandex",}
         };
     }
+
     @Before
     public void openPage() {
         driver = browserRule.selectBrowser(browser);
@@ -36,6 +38,7 @@ public class ConstructorTest {
         driver.get(mainPage.getUrl());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
+
     @Test
     @DisplayName("Проверка перехода на вкладку Бургеры")
     public void clickOnBread() {
@@ -43,18 +46,21 @@ public class ConstructorTest {
         mainPage.clickBreadButton();
         assertEquals("Краторная булка N-200i", mainPage.getTextCratorBread());
     }
+
     @Test
     @DisplayName("Проверка перехода на вкладку Соусы")
     public void clickOnSauce() {
         mainPage.clickSauceButton();
         assertEquals("Соус традиционный галактический", mainPage.getTextGalaxySauce());
     }
+
     @Test
     @DisplayName("Проверка перехода на вкладку Начинки")
     public void clickOnFiling() {
         mainPage.clickFilingsButton();
         assertEquals("Филе Люминесцентного тетраодонтимформа", mainPage.getTextLuminFiling());
     }
+
     @After
     public void quitDriver() {
         driver.quit();

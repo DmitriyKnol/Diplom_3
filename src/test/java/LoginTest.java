@@ -1,4 +1,5 @@
 import io.qameta.allure.junit4.DisplayName;
+import main.BrowserRule;
 import main.SetUp;
 import main.pom.*;
 import org.junit.After;
@@ -26,23 +27,25 @@ public class LoginTest {
     public LoginTest(String browser) {
         this.browser = browser;
     }
-    @Parameterized.Parameters (name = "{0}")
+
+    @Parameterized.Parameters(name = "{0}")
     public static Object[][] getBrowser() {
         return new Object[][]{
                 {"Chrome"},
                 {"Yandex"},
         };
     }
-       @Before
+
+    @Before
     public void openPage() {
-           driver = browserRule.selectBrowser(browser);
-           mainPage = new MainPage(driver);
-           loginPage = new LoginPage(driver);
-           registrationPage = new RegistrationPage(driver);
-           recoveryPasswordPage = new RecoveryPasswordPage(driver);
-           setUp = new SetUp(driver);
-           setUp.prepareForLogin();
-            }
+        driver = browserRule.selectBrowser(browser);
+        mainPage = new MainPage(driver);
+        loginPage = new LoginPage(driver);
+        registrationPage = new RegistrationPage(driver);
+        recoveryPasswordPage = new RecoveryPasswordPage(driver);
+        setUp = new SetUp(driver);
+        setUp.prepareForLogin();
+    }
 
     @Test
     @DisplayName("Проверка возможности успешного входа через кнопку войти в аккаунт на главной странице")
@@ -59,15 +62,17 @@ public class LoginTest {
         loginPage.loginEnterFieldsAndClick(email, password);
         assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
     }
+
     @Test
     @DisplayName("Проверка возможности успешного входа через кнопку войти в форме регистрации")
     public void loginOnRegistrationForm() {
-           mainPage.clickPersonalAccount();
-           loginPage.clickButtonFromStartRegistration();
-           mainPage.clickEnterOnRegistrationForm();
-           loginPage.loginEnterFieldsAndClick(email, password);
-           assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
+        mainPage.clickPersonalAccount();
+        loginPage.clickButtonFromStartRegistration();
+        mainPage.clickEnterOnRegistrationForm();
+        loginPage.loginEnterFieldsAndClick(email, password);
+        assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
     }
+
     @Test
     @DisplayName("Проверка возможности успешного входа через кнопку войти в форме восстановления пароля")
     public void loginOnRefreshPasswordForm() {

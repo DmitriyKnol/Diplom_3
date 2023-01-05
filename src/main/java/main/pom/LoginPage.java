@@ -28,26 +28,29 @@ public class LoginPage {
     public void clickButtonFromStartRegistration() {
         driver.findElement(buttonFromStartRegistration).click();
     }
+
     public void valueEmail(String inputEmail) {
         driver.findElement(fieldEmail).clear();
         driver.findElement(fieldEmail).sendKeys(inputEmail);
     }
+
     public void valuePassword(String inputPassword) {
         driver.findElement(fieldPassword).clear();
         driver.findElement(fieldPassword).sendKeys(inputPassword);
     }
+
     public String buttonEnterText() {
         return driver.findElement(enterButton).getText();
     }
+
     public String textUncorrectPassword() {
         return driver.findElement(messageErrorPassword).getText();
     }
+
     public void clickButtonEnter() {
         driver.findElement(enterButton).click();
     }
-    public By getButtonEnter() {
-        return enterButton;
-    }
+
     public void loginEnterFieldsAndClick(String inputEmail, String inputPassword) {
         valueEmail(inputEmail);
         valuePassword(inputPassword);

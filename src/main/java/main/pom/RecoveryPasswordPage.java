@@ -10,6 +10,7 @@ public class RecoveryPasswordPage {
     public RecoveryPasswordPage(WebDriver driver) {
         this.driver = driver;
     }
+
     public void clickEnterButton() {
         driver.findElement(enterButton).click();
     }
