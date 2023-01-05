@@ -1,5 +1,5 @@
 import com.github.javafaker.Faker;
-import jdk.jfr.Description;
+import io.qameta.allure.junit4.DisplayName;
 import main.SetUp;
 import main.pom.*;
 import org.junit.After;
@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -52,13 +51,13 @@ public class RegistrationTest {
 
     }
     @Test
-     @Description("Проверка возможности успешной регистрации")
+    @DisplayName("Проверка возможности успешной регистрации")
     public void successfullRegistration() {
         registrationPage.registrationInputFieldsAndClickButton(userName, email, password);
         assertEquals("Войти",loginPage.buttonEnterText());
     }
     @Test
-    @Description("Проверка регистрации с невалидным паролем")
+    @DisplayName("Проверка регистрации с невалидным паролем")
     public void registrationWithInvalidPassword() throws Exception {
         try {
             registrationPage.registrationInputFieldsAndClickButton(userName, email, invalidpassword);

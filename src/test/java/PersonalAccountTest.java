@@ -1,4 +1,4 @@
-import jdk.jfr.Description;
+import io.qameta.allure.junit4.DisplayName;
 import main.SetUp;
 import main.pom.*;
 import org.junit.After;
@@ -40,28 +40,27 @@ public class PersonalAccountTest {
         setUp.login();
     }
     @Test
-    @Description("Проверка возможности перехода в личный кабинет")
+    @DisplayName("Проверка возможности перехода в личный кабинет")
     public void clickOnPersonalAccount() {
         mainPage.clickPersonalAccount();
-        personalAccountPage.clickLogoutButton();
         assertEquals("Выход",personalAccountPage.logoutButtonText());
     }
     @Test
-    @Description("Проверка нажатия на логотип")
+    @DisplayName("Проверка нажатия на логотип")
     public void clickOnLogo() {
         mainPage.clickPersonalAccount();
         personalAccountPage.clickLogo();
        assertEquals("Соберите бургер", mainPage.textOfChooseBurger());
     }
     @Test
-    @Description("Проверка возможности перехода в конструктор из личного кабинета")
+    @DisplayName("Проверка возможности перехода в конструктор из личного кабинета")
     public void clickOnConstructorButton() {
         mainPage.clickPersonalAccount();
         personalAccountPage.clickConctructorButton();
         assertEquals("Соберите бургер", mainPage.textOfChooseBurger());
     }
     @Test
-    @Description("Проверка возможности выхода из аккаунта")
+    @DisplayName("Проверка возможности выхода из аккаунта")
     public void successfullLogout() {
         mainPage.clickPersonalAccount();
         personalAccountPage.clickLogoutButton();
