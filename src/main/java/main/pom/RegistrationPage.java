@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 
 public class RegistrationPage {
     // Поле Имя пользователя
-    private final By fieldUserName = By.xpath(".//form/fieldset[1]/div/div/input[@name='name']");
+    private final By fieldUserName = By.xpath(".//label[text() = 'Имя']//following-sibling::input");
     // Поле Email
-    private final By fieldEmail = By.xpath(".//form/fieldset[2]/div/div/input[@name='name']");
+    private final By fieldEmail = By.xpath(".//label[text() = 'Email']//following-sibling::input");
     // Поле Пароль
     private final By fieldPassword = By.xpath(".//div/input[@name='Пароль']");
     // Кнопка зарегестрироваться
