@@ -27,7 +27,7 @@ public class MainPage {
     // Филе Люминесцентного тетраодонтимформа
     private final By luminFiling = By.xpath(".//p[text()='Филе Люминесцентного тетраодонтимформа']");
     private final WebDriver driver;
-    private final String url = "https://stellarburgers.nomoreparties.site/";
+    private static final String url = "https://stellarburgers.nomoreparties.site/";
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
