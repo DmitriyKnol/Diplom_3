@@ -1,40 +1,21 @@
 import io.qameta.allure.junit4.DisplayName;
-import main.BrowserRule;
 import main.pom.MainPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(Parameterized.class)
 public class ConstructorTest {
-    WebDriver driver;
-    MainPage mainPage;
-    BrowserRule browserRule = new BrowserRule();
-    private final String browser;
-
-    public ConstructorTest(String browser) {
-        this.browser = browser;
-    }
-
-    @Parameterized.Parameters(name = "{0}")
-    public static Object[][] getBrowser() {
-        return new Object[][]{
-                {"Chrome",},
-                {"Yandex",}
-        };
-    }
+    WebDriver driver = new ChromeDriver();
+    MainPage mainPage = new MainPage(driver);
 
     @Before
     public void openPage() {
-        driver = browserRule.selectBrowser(browser);
-        mainPage = new MainPage(driver);
         driver.get(mainPage.getUrl());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }

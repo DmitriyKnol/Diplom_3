@@ -1,49 +1,25 @@
 import io.qameta.allure.junit4.DisplayName;
-import main.BrowserRule;
 import main.SetUp;
 import main.pom.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
-
-@RunWith(Parameterized.class)
 public class LoginTest {
-    WebDriver driver;
-    MainPage mainPage;
-    RegistrationPage registrationPage;
-    LoginPage loginPage;
-    RecoveryPasswordPage recoveryPasswordPage;
+    WebDriver driver = new ChromeDriver();
+    MainPage mainPage = new MainPage(driver);
+    RegistrationPage registrationPage = new RegistrationPage(driver);
+    LoginPage loginPage = new LoginPage(driver);
+    RecoveryPasswordPage recoveryPasswordPage = new RecoveryPasswordPage(driver);
     private final String email = "ddmwkd@mail.ru";
     private final String password = "123456";
-    SetUp setUp;
-    BrowserRule browserRule = new BrowserRule();
-    private final String browser;
-
-    public LoginTest(String browser) {
-        this.browser = browser;
-    }
-
-    @Parameterized.Parameters(name = "{0}")
-    public static Object[][] getBrowser() {
-        return new Object[][]{
-                {"Chrome"},
-                {"Yandex"},
-        };
-    }
+    SetUp setUp = new SetUp(driver);
 
     @Before
     public void openPage() {
-        driver = browserRule.selectBrowser(browser);
-        mainPage = new MainPage(driver);
-        loginPage = new LoginPage(driver);
-        registrationPage = new RegistrationPage(driver);
-        recoveryPasswordPage = new RecoveryPasswordPage(driver);
-        setUp = new SetUp(driver);
         setUp.prepareForLogin();
     }
 
