@@ -1,37 +1,35 @@
 import io.qameta.allure.junit4.DisplayName;
-import main.SetUp;
+import main.BaseTest;
 import main.pom.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
-public class PersonalAccountTest {
-    WebDriver driver = new ChromeDriver();
-    MainPage mainPage = new MainPage(driver);
-    LoginPage loginPage = new LoginPage(driver);
-    PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
-    SetUp setUp = new SetUp(driver);
+
+public class PersonalAccountTest extends BaseTest {
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = new LoginPage(getDriver());
+    PersonalAccountPage personalAccountPage = new PersonalAccountPage(getDriver());
 
     @Before
     public void openPage() {
-        setUp.prepareForLogin();
-        setUp.login();
+        openUrl();
+        clickEnterOnMainPage();
+        login();
     }
 
     @Test
     @DisplayName("Проверка возможности перехода в личный кабинет")
     public void clickOnPersonalAccount() {
-        mainPage.clickPersonalAccount();
+        clickPersonalAccount();
         assertEquals("Выход", personalAccountPage.logoutButtonText());
     }
 
     @Test
     @DisplayName("Проверка нажатия на логотип из личного кабинета")
     public void clickOnLogo() {
-        mainPage.clickPersonalAccount();
+        clickPersonalAccount();
         personalAccountPage.clickLogo();
         assertEquals("Соберите бургер", mainPage.textOfChooseBurger());
     }
@@ -39,7 +37,7 @@ public class PersonalAccountTest {
     @Test
     @DisplayName("Проверка возможности перехода в конструктор из личного кабинета")
     public void clickOnConstructorButton() {
-        mainPage.clickPersonalAccount();
+        clickPersonalAccount();
         personalAccountPage.clickConctructorButton();
         assertEquals("Соберите бургер", mainPage.textOfChooseBurger());
     }
@@ -47,13 +45,13 @@ public class PersonalAccountTest {
     @Test
     @DisplayName("Проверка возможности выхода из аккаунта")
     public void successfullLogout() {
-        mainPage.clickPersonalAccount();
+        clickPersonalAccount();
         personalAccountPage.clickLogoutButton();
         assertEquals("Войти", loginPage.buttonEnterText());
     }
 
     @After
     public void quitDriver() {
-        driver.quit();
+        baseAfter(getDriver());
     }
 }

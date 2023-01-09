@@ -1,33 +1,28 @@
 import io.qameta.allure.junit4.DisplayName;
-import main.SetUp;
+import main.BaseTest;
 import main.pom.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
-public class LoginTest {
-    WebDriver driver = new ChromeDriver();
-    MainPage mainPage = new MainPage(driver);
-    RegistrationPage registrationPage = new RegistrationPage(driver);
-    LoginPage loginPage = new LoginPage(driver);
-    RecoveryPasswordPage recoveryPasswordPage = new RecoveryPasswordPage(driver);
-    private final String email = "ddmwkd@mail.ru";
-    private final String password = "123456";
-    SetUp setUp = new SetUp(driver);
+
+public class LoginTest extends BaseTest {
+
+    MainPage mainPage = new MainPage(getDriver());
+    RegistrationPage registrationPage = new RegistrationPage(getDriver());
+    RecoveryPasswordPage recoveryPasswordPage = new RecoveryPasswordPage(getDriver());
 
     @Before
     public void openPage() {
-        setUp.prepareForLogin();
+        openUrl();
     }
 
     @Test
     @DisplayName("Проверка возможности успешного входа через кнопку войти в аккаунт на главной странице")
     public void loginOnMainPage() {
         mainPage.clickEnterButton();
-        loginPage.loginEnterFieldsAndClick(email, password);
+        login();
         assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
     }
 
@@ -35,33 +30,33 @@ public class LoginTest {
     @DisplayName("Проверка возможности успешного входа через кнопку Личный кабинет")
     public void loginOnClickPersonalAccount() {
         mainPage.clickPersonalAccount();
-        loginPage.loginEnterFieldsAndClick(email, password);
+        login();
         assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
     }
 
     @Test
     @DisplayName("Проверка возможности успешного входа через кнопку войти в форме регистрации")
     public void loginOnRegistrationForm() {
-        mainPage.clickPersonalAccount();
-        loginPage.clickButtonFromStartRegistration();
+        clickPersonalAccount();
+        startRegistration();
         mainPage.clickEnterOnRegistrationForm();
-        loginPage.loginEnterFieldsAndClick(email, password);
+        login();
         assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
     }
 
     @Test
     @DisplayName("Проверка возможности успешного входа через кнопку войти в форме восстановления пароля")
     public void loginOnRefreshPasswordForm() {
-        mainPage.clickPersonalAccount();
+        clickPersonalAccount();
         registrationPage.clickRecoveryPassword();
         recoveryPasswordPage.clickEnterButton();
-        loginPage.loginEnterFieldsAndClick(email, password);
+        login();
         assertEquals("Оформить заказ", mainPage.buttonCreateOrderText());
     }
 
     @After
     public void quitDriver() {
-        driver.quit();
+        baseAfter(getDriver());
     }
 }
 
